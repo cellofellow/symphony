@@ -1,0 +1,38 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+    <title>Music Catalog</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/spectre.min.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/spectre-exp.min.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/spectre-icons.min.css' %}" >
+</head>
+<body>
+    <div class="container" >
+        <div class="columns">
+            <div class="column col-12" >
+                <h1>Music Catalog</h1>
+            </div>
+            <div class="column col-12">
+                <table class="table table-striped table-hover" >
+                    <thead>
+                        <tr><th>ID Number</th><th>Title</th><th>Subtitle</th><th>Composer</th><th>Arranger</th><th>Location</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for piece in piece_list %}
+                            <tr>
+                            <th>{{ piece.id }}</th>
+                            <td>{{ piece.title }}</td>
+                            <td>{{ piece.subtitle }}</td>
+                            <td>{{ piece.composer.first }}</td>
+                            <td>{{ piece.arranger.first }}</td>
+                            <td>{{ piece.drawer }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
