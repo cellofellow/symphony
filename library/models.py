@@ -48,7 +48,7 @@ class Piece(models.Model):
     subtitle = models.CharField('Subtitle (Optional)', max_length=128,
                                 blank=True)
     composer = models.ManyToManyField('Composer')
-    arranger = models.ManyToManyField('Arranger', blank=True, null=True)
+    arranger = models.ManyToManyField('Arranger')
     score = models.ForeignKey('ScoreType', blank=True, null=True)
     difficulty = models.SmallIntegerField('Difficulty Level',
                                           choices=DIFFICULTY_CHOICES,
@@ -59,13 +59,25 @@ class Piece(models.Model):
         return "%d: %s" % (self.id, self.title)
 
     def get_absolute_url(self):
-        return reverse('piece_detail', kwargs={'object_id': self.id})
+        return reverse('piece_detail', kwargs={'pk': self.id})
 
     def get_edit_url(self):
         return reverse('admin', args=['library/piece/%d/' % self.id])
 
     class Meta:
         ordering = ['title']
+
+    @classmethod
+    def search(cls, term: str):
+        return Piece.objects.raw(
+            """
+            SELECT piece.*
+            FROM piece_search
+            JOIN library_piece AS piece
+              ON piece_search.rowid = piece.id
+            WHERE piece_search MATCH %s
+            """,
+            [term])
 
 class ScoreType(models.Model):
     name = models.CharField('Short Name', max_length=16)
