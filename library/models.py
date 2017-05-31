@@ -75,7 +75,7 @@ class Piece(models.Model):
             FROM piece_search
             JOIN library_piece AS piece
               ON piece_search.rowid = piece.id
-            WHERE piece_search MATCH %s
+            WHERE piece_search.body MATCH %s
             """,
             [term])
 
