@@ -1,0 +1,77 @@
+<html>
+<head>
+    <title>{{ piece.title }} - Music Catalog</title>
+    {% include 'library/_css.html' %}
+</head>
+<body>
+    {% load static %}
+    <div class="container" >
+        <div class="columns">
+            <div class="column col-12">
+                <h1>Music Catalog</h1>
+            </div>
+            <div class="column col-3" >
+                <header>
+                    <h2>{{ piece.title }}</h2>
+                    {% if piece.subtitle %}<h3>{{ piece.subtitle }}</h3>{% endif %}
+                    <p>{{ piece.drawer }}</p>
+                </header>
+                {% if piece.difficulty %}
+                <p><strong>Difficulty:</strong> {{ piece.difficulty }}</p>
+                {% endif %}
+                <div class="tile" >
+                    <div class="tile-icon" >
+                        <figure class="avatar avatar-lg" >
+                            <img src="{% static 'img/mozart-silhouette.png' %}">
+                        </figure>
+                    </div>
+                    <div class="tile-content">
+                        <div class="tile-title">Composers</div>
+                        {% if piece.composer.all|length_is:"1" %}
+                        {{ piece.composer.first }}
+                        {% else %}
+                        <ul>
+                            {% for composer in piece.composer.all %}
+                            <li>{{ composer }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if piece.arranger.all %}
+                <div class="tile" >
+                    <div class="tile-icon" >
+                        <figure class="avatar avatar-lg" >
+                            <img src="{% static 'img/quill-pen.png' %}">
+                        </figure>
+                    </div>
+                    <div class="tile-content">
+                        <div class="tile-title">Arrangers</div>
+                        {% if piece.arranger.all|length_is:"1" %}
+                        {{ piece.arranger.first }}
+                        {% else %}
+                        <ul>
+                            {% for arranger in piece.arranger.all %}
+                            <li>{{ arranger }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+                {% if piece.comment %}
+                <div class="tile" >
+                    <div class="tile-content">
+                        <h4 class="tile-title">Comment</h4>
+                        {{ piece.comment }}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="column col-1" >
+                <a href="{{ piece.get_edit_url }}" class="btn btn-primary" >Edit</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

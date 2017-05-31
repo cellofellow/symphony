@@ -16,10 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from library.views import PieceList, PieceDetail
+from library.views import SearchView, PieceDetail
 
 urlpatterns = [
-    url(r'^$', PieceList.as_view()),
+    url(r'^$', SearchView.as_view()),
     url(r'^(?P<pk>[0-9]+)/$', PieceDetail.as_view(), name='piece_detail'),
     url(r'^admin/', admin.site.urls),
 ]
