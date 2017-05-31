@@ -1,5 +1,6 @@
-* TODO Make front page a search page.
+* DONE Make front page a search page.
+  CLOSED: [2017-05-31 Wed 13:26]
   :LOGBOOK:
-  CLOCK: [2017-05-30 Tue 18:26]
+  CLOCK: [2017-05-30 Tue 18:26]--[2017-05-30 Tue 19:25] =>  0:59
   CLOCK: [2017-05-30 Tue 17:56]--[2017-05-30 Tue 18:21] =>  0:25
   :END:

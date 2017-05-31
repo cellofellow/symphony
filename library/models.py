@@ -62,8 +62,7 @@ class Piece(models.Model):
         return reverse('piece_detail', kwargs={'pk': self.id})
 
     def get_edit_url(self):
-        return ""
-        return reverse('admin', args=['library/piece/%d/' % self.id])
+        return reverse('admin:library_piece_change', args=[self.id])
 
     class Meta:
         ordering = ['title']
