@@ -31,7 +31,7 @@ FORWARDS = [
                   subtitle || ' ' ||
                   comment || ' ' ||
                   GROUP_CONCAT(composer.first_name || ' ' || composer.last_name) || ' ' ||
-                  GROUP_CONCAT(arranger.first_name, arranger_last_name)
+                  GROUP_CONCAT(arranger.first_name, arranger.last_name)
               FROM library_piece AS piece
               LEFT OUTER JOIN library_piece_composer AS pc
                            ON piece.id = pc.piece_id
@@ -67,7 +67,7 @@ FORWARDS = [
                   subtitle || ' ' ||
                   comment || ' ' ||
                   GROUP_CONCAT(composer.first_name || ' ' || composer.last_name) || ' ' ||
-                  GROUP_CONCAT(arranger.first_name, arranger_last_name)
+                  GROUP_CONCAT(arranger.first_name, arranger.last_name)
               FROM library_piece AS piece
               LEFT OUTER JOIN library_piece_composer AS pc
                            ON piece.id = pc.piece_id
@@ -94,7 +94,7 @@ FORWARDS = [
                   subtitle || ' ' ||
                   comment || ' ' ||
                   GROUP_CONCAT(composer.first_name || ' ' || composer.last_name) || ' ' ||
-                  GROUP_CONCAT(arranger.first_name, arranger_last_name)
+                  GROUP_CONCAT(arranger.first_name, arranger.last_name)
               FROM library_piece AS piece
               LEFT OUTER JOIN library_piece_composer AS pc
                            ON piece.id = pc.piece_id
@@ -121,7 +121,7 @@ FORWARDS = [
                   subtitle || ' ' ||
                   comment || ' ' ||
                   GROUP_CONCAT(composer.first_name || ' ' || composer.last_name) || ' ' ||
-                  GROUP_CONCAT(arranger.first_name, arranger_last_name)
+                  GROUP_CONCAT(arranger.first_name, arranger.last_name)
               FROM library_piece AS piece
               LEFT OUTER JOIN library_piece_composer AS pc
                            ON piece.id = pc.piece_id
@@ -148,7 +148,7 @@ FORWARDS = [
                   subtitle || ' ' ||
                   comment || ' ' ||
                   GROUP_CONCAT(composer.first_name || ' ' || composer.last_name) || ' ' ||
-                  GROUP_CONCAT(arranger.first_name, arranger_last_name)
+                  GROUP_CONCAT(arranger.first_name, arranger.last_name)
               FROM library_piece AS piece
               LEFT OUTER JOIN library_piece_composer AS pc
                            ON piece.id = pc.piece_id
@@ -175,7 +175,7 @@ FORWARDS = [
                   subtitle || ' ' ||
                   comment || ' ' ||
                   GROUP_CONCAT(composer.first_name || ' ' || composer.last_name) || ' ' ||
-                  GROUP_CONCAT(arranger.first_name, arranger_last_name)
+                  GROUP_CONCAT(arranger.first_name, arranger.last_name)
               FROM library_piece AS piece
               LEFT OUTER JOIN library_piece_composer AS pc
                            ON piece.id = pc.piece_id
@@ -202,7 +202,7 @@ FORWARDS = [
                   subtitle || ' ' ||
                   comment || ' ' ||
                   GROUP_CONCAT(composer.first_name || ' ' || composer.last_name) || ' ' ||
-                  GROUP_CONCAT(arranger.first_name, arranger_last_name)
+                  GROUP_CONCAT(arranger.first_name, arranger.last_name)
               FROM library_piece AS piece
               LEFT OUTER JOIN library_piece_composer AS pc
                            ON piece.id = pc.piece_id
