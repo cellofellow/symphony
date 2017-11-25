@@ -17,6 +17,7 @@ class Composer(models.Model):
     class Meta:
         ordering = ['last_name']
 
+
 class Arranger(models.Model):
     first_name = models.CharField('First Name', max_length=32)
     last_name = models.CharField('Last Name', max_length=32)
@@ -32,6 +33,7 @@ class Arranger(models.Model):
 
     class Meta:
         ordering = ['last_name']
+
 
 class Piece(models.Model):
     DIFFICULTY_CHOICES = (
@@ -165,7 +167,7 @@ class Performance(models.Model):
     piece = models.ManyToManyField('Piece')
 
     def __str__(self):
-        return self.date + ': ' + self.place
+        return '{}: {}'.format(self.date, self.place)
 
     def get_absolute_url(self):
         return reverse('performance_detail', kwargs={'object_id': self.id})

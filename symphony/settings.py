@@ -23,9 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'zf-_05@c0(mgm051rx-2$)@ci+%2h+3nfvj#m-ybp+7*qh6k6g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "").lower() == "True"
+DEBUG = os.getenv("DEBUG", "").lower() == "true"
 
 ALLOWED_HOSTS = ["lys.alwaysdata.net"]
+if DEBUG:
+    ALLOWED_HOSTS = ['*']
 
 
 # Application definition
