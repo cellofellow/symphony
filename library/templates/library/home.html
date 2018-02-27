@@ -25,14 +25,13 @@
             <div class="column col-12">
                 <table class="table table-striped table-hover" >
                     <thead>
-                        <tr><th>ID Number</th><th>Title</th><th>Subtitle</th><th>Composer</th><th>Arranger</th><th>Location</th></tr>
+                        <tr><th>ID Number</th><th>Title</th><th>Composer</th><th>Arranger</th><th>Location</th></tr>
                     </thead>
                     <tbody>
                         {% for piece in results %}
                         <tr>
                             <td>{{ piece.id }}</td>
-                            <td><a href="{{ piece.get_absolute_url }}">{{ piece.title }}</a></td>
-                            <td>{{ piece.subtitle }}</td>
+                            <td><a href="{{ piece.get_absolute_url }}">{{ piece.title }}{% if piece.subtitle %} <small>{{ piece.subtitle }}</small>{% endif %}</a></td>
                             <td>{{ piece.composer.first }}</td>
                             <td>{{ piece.arranger.first }}</td>
                             <td>{{ piece.drawer }}</td>

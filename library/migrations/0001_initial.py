@@ -62,7 +62,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('number', models.SmallIntegerField(verbose_name='Drawer Number')),
-                ('cabinet', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='library.Cabinet')),
+                ('cabinet', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='library.Cabinet')),
             ],
             options={
                 'ordering': ['cabinet', 'number'],
@@ -101,7 +101,7 @@ class Migration(migrations.Migration):
                 ('comment', models.TextField(blank=True, max_length=1024, verbose_name='Comment')),
                 ('arranger', models.ManyToManyField(blank=True, null=True, to='library.Arranger')),
                 ('composer', models.ManyToManyField(to='library.Composer')),
-                ('drawer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='library.Drawer')),
+                ('drawer', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='library.Drawer')),
             ],
             options={
                 'ordering': ['title'],
@@ -118,7 +118,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='piece',
             name='score',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='library.ScoreType'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='library.ScoreType'),
         ),
         migrations.AddField(
             model_name='performance',
@@ -128,6 +128,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='cabinet',
             name='group',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='library.CabinetGroup'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='library.CabinetGroup'),
         ),
     ]

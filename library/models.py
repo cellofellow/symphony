@@ -45,13 +45,13 @@ class Piece(models.Model):
     )
 
     id = models.IntegerField('Catalog ID Number', primary_key=True)
-    drawer = models.ForeignKey('Drawer')
+    drawer = models.ForeignKey('Drawer', models.PROTECT)
     title = models.CharField('Title', max_length=256)
     subtitle = models.CharField('Subtitle (Optional)', max_length=128,
                                 blank=True)
     composer = models.ManyToManyField('Composer')
     arranger = models.ManyToManyField('Arranger')
-    score = models.ForeignKey('ScoreType', blank=True, null=True)
+    score = models.ForeignKey('ScoreType', models.SET_NULL, blank=True, null=True)
     difficulty = models.SmallIntegerField('Difficulty Level',
                                           choices=DIFFICULTY_CHOICES,
                                           blank=True, null=True)
@@ -107,7 +107,7 @@ class CabinetGroup(models.Model):
 
 class Cabinet(models.Model):
     number = models.IntegerField('Cabinet ID Number')
-    group = models.ForeignKey('CabinetGroup')
+    group = models.ForeignKey('CabinetGroup', models.PROTECT)
 
     def __str__(self):
         return "%s >> %s" % (self.group, self.number)
@@ -128,7 +128,7 @@ class Cabinet(models.Model):
         ordering = ['group', 'number']
 
 class Drawer(models.Model):
-    cabinet = models.ForeignKey('Cabinet')
+    cabinet = models.ForeignKey('Cabinet', models.PROTECT)
     number = models.SmallIntegerField('Drawer Number')
 
     def __str__(self):
