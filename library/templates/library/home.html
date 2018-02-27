@@ -32,8 +32,8 @@
                         <tr>
                             <td>{{ piece.id }}</td>
                             <td><a href="{{ piece.get_absolute_url }}">{{ piece.title }}{% if piece.subtitle %} <small>{{ piece.subtitle }}</small>{% endif %}</a></td>
-                            <td>{{ piece.composer.first }}</td>
-                            <td>{{ piece.arranger.first }}</td>
+                            <td><ul>{% for composer in piece.composer_artists.all %}<li style="display:block;">{{ composer }}</li>{% endfor %}</ul></td>
+                            <td><ul>{% for arranger in piece.arranger_artists.all %}<li style="display:block;">{{ arranger }}</li>{% endfor %}</ul></td>
                             <td>{{ piece.drawer }}</td>
                         </tr>
                         {% endfor %}

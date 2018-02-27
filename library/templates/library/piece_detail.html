@@ -27,18 +27,18 @@
                     </div>
                     <div class="tile-content">
                         <div class="tile-title">Composers</div>
-                        {% if piece.composer.all|length_is:"1" %}
-                        {{ piece.composer.first }}
+                        {% ifequal piece.composer_artists.count 1 %}
+                        {{ piece.composer_artists.first }}
                         {% else %}
                         <ul>
-                            {% for composer in piece.composer.all %}
+                            {% for composer in piece.composer_artists.all %}
                             <li>{{ composer }}</li>
                             {% endfor %}
                         </ul>
-                        {% endif %}
+                        {% endifequal %}
                     </div>
                 </div>
-                {% if piece.arranger.all %}
+                {% if piece.arranger_artists.exists %}
                 <div class="tile" >
                     <div class="tile-icon" >
                         <figure class="avatar avatar-lg" >
@@ -47,15 +47,15 @@
                     </div>
                     <div class="tile-content">
                         <div class="tile-title">Arrangers</div>
-                        {% if piece.arranger.all|length_is:"1" %}
-                        {{ piece.arranger.first }}
+                        {% ifequal piece.arranger_artists.count 1 %}
+                        {{ piece.arranger_artists.first }}
                         {% else %}
                         <ul>
-                            {% for arranger in piece.arranger.all %}
+                            {% for arranger in piece.arranger_artists.all %}
                             <li>{{ arranger }}</li>
                             {% endfor %}
                         </ul>
-                        {% endif %}
+                        {% endifequal %}
                     </div>
                 </div>
                 {% endif %}

@@ -1,38 +1,20 @@
 from django.db import models
 from django.urls import reverse
 
-class Composer(models.Model):
-    first_name = models.CharField('First Name', max_length=32)
-    last_name = models.CharField('Last Name', max_length=32)
+
+class Artist(models.Model):
+    surname = models.CharField('Surname', max_length=100)
+    given_names = models.CharField('Given Names', max_length=1000)
 
     def __str__(self):
-        return "%s, %s" % (self.last_name, self.first_name)
+        return '{self.surname}, {self.given_names}'.format(self=self)
 
     def get_absolute_url(self):
-        return reverse('library.views.composer_list', [str(self.id)])
-
-    def get_edit_url(self):
-        return reverse('admin', args=['library/composer/%d/' % self.id])
+        return reverse('library.views.composer_list', args=[str(self.id)])
 
     class Meta:
-        ordering = ['last_name']
-
-
-class Arranger(models.Model):
-    first_name = models.CharField('First Name', max_length=32)
-    last_name = models.CharField('Last Name', max_length=32)
-
-    def __str__(self):
-        return "%s, %s" % (self.last_name, self.first_name)
-
-    def get_absolute_url(self):
-        return reverse('library.views.arranger_list', args=[str(self.id)])
-
-    def get_edit_url(self):
-        return reverse('admin', args=['library/arranger/%d/' % self.id])
-
-    class Meta:
-        ordering = ['last_name']
+        ordering = ('surname', 'given_names')
+        unique_together = ('surname', 'given_names')
 
 
 class Piece(models.Model):
@@ -49,8 +31,8 @@ class Piece(models.Model):
     title = models.CharField('Title', max_length=256)
     subtitle = models.CharField('Subtitle (Optional)', max_length=128,
                                 blank=True)
-    composer = models.ManyToManyField('Composer')
-    arranger = models.ManyToManyField('Arranger')
+    composer_artists = models.ManyToManyField('Artist', related_name='pieces_composed')
+    arranger_artists = models.ManyToManyField('Artist', related_name='pieces_arranged')
     score = models.ForeignKey('ScoreType', models.SET_NULL, blank=True, null=True)
     difficulty = models.SmallIntegerField('Difficulty Level',
                                           choices=DIFFICULTY_CHOICES,
@@ -76,10 +58,11 @@ class Piece(models.Model):
             SELECT piece.*
             FROM piece_search
             JOIN library_piece AS piece
-              ON piece_search.rowid = piece.id
+              ON piece_search.id = piece.id
             WHERE piece_search.body MATCH %s
             """,
             [term])
+
 
 class ScoreType(models.Model):
     name = models.CharField('Short Name', max_length=16)
@@ -87,6 +70,7 @@ class ScoreType(models.Model):
 
     def __str__(self):
         return "%s" % self.name
+
 
 class CabinetGroup(models.Model):
     shortname = models.CharField('Short Name', max_length=5, unique=True)
@@ -104,6 +88,7 @@ class CabinetGroup(models.Model):
 
     class Meta:
         ordering = ['shortname']
+
 
 class Cabinet(models.Model):
     number = models.IntegerField('Cabinet ID Number')
@@ -126,6 +111,7 @@ class Cabinet(models.Model):
 
     class Meta:
         ordering = ['group', 'number']
+
 
 class Drawer(models.Model):
     cabinet = models.ForeignKey('Cabinet', models.PROTECT)
