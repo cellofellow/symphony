@@ -86,6 +86,9 @@ class Location(models.Model):
             return '{} >> {}'.format(self.parent, self.identifier)
         return self.identifier
 
+    def get_absolute_url(self):
+        return reverse('location_detail', args=[self.pk])
+
     class Meta:
         unique_together = (
             ('identifier', 'parent'),

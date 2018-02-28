@@ -1,6 +1,7 @@
 from django.views.generic import ListView, DetailView, TemplateView
 
-from .models import Piece
+from .models import Piece, Location
+
 
 class SearchView(TemplateView):
     template_name = "library/home.html"
@@ -13,10 +14,11 @@ class SearchView(TemplateView):
             context["results"] = Piece.search(query)
         return context
 
-class PieceList(ListView):
-    queryset = Piece.objects.all()
-    context_object_name = 'piece_list'
 
 class PieceDetail(DetailView):
     queryset = Piece.objects.all()
     context_object_name = 'piece'
+
+
+class LocationView(DetailView):
+    queryset = Location.objects.all()
