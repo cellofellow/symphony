@@ -19,21 +19,26 @@ class Artist(models.Model):
 
 class Piece(models.Model):
     DIFFICULTY_CHOICES = (
-        ('0', 'Unknown'),
-        ('1', 'Beginner'),
-        ('2', 'Intermediate'),
-        ('3', 'Advanced'),
-        ('4', 'Insane'),
+        (0, 'Unknown'),
+        (1, 'Beginner'),
+        (2, 'Intermediate'),
+        (3, 'Advanced'),
+        (4, 'Insane'),
     )
 
     id = models.IntegerField('Catalog ID Number', primary_key=True)
     drawer = models.ForeignKey('Drawer', models.PROTECT)
+    location = models.ForeignKey('Location', models.PROTECT,
+                                  null=True)
     title = models.CharField('Title', max_length=256)
     subtitle = models.CharField('Subtitle (Optional)', max_length=128,
                                 blank=True)
-    composer_artists = models.ManyToManyField('Artist', related_name='pieces_composed')
-    arranger_artists = models.ManyToManyField('Artist', related_name='pieces_arranged')
-    score = models.ForeignKey('ScoreType', models.SET_NULL, blank=True, null=True)
+    composer_artists = models.ManyToManyField('Artist',
+                                              related_name='pieces_composed')
+    arranger_artists = models.ManyToManyField('Artist',
+                                              related_name='pieces_arranged')
+    score = models.ForeignKey('ScoreType', models.SET_NULL,
+                              blank=True, null=True)
     difficulty = models.SmallIntegerField('Difficulty Level',
                                           choices=DIFFICULTY_CHOICES,
                                           blank=True, null=True)
@@ -70,6 +75,23 @@ class ScoreType(models.Model):
 
     def __str__(self):
         return "%s" % self.name
+
+
+class Location(models.Model):
+    identifier = models.CharField(max_length=100)
+    parent = models.ForeignKey("Location", models.PROTECT,
+                               null=True, blank=True,
+                               related_name='children')
+
+    def __str__(self):
+        if self.parent:
+            return '{} >> {}'.format(self.parent, self.identifier)
+        return self.identifier
+
+    class Meta:
+        unique_together = (
+            ('identifier', 'parent'),
+        )
 
 
 class CabinetGroup(models.Model):
@@ -136,6 +158,7 @@ class Drawer(models.Model):
     class Meta:
         ordering = ['cabinet', 'number']
 
+
 class Orchestra(models.Model):
     shortname = models.CharField('Short Name', max_length=5, unique=True)
     name = models.CharField('Full Name', max_length=64)
@@ -145,6 +168,7 @@ class Orchestra(models.Model):
 
     class Meta:
         ordering = ['shortname']
+
 
 class Performance(models.Model):
     place = models.TextField('Place', max_length=1024)
