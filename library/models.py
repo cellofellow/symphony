@@ -26,15 +26,14 @@ class Score(Enum):
     FULL = 'Full'
 
 
-class Piece(models.Model):
-    DIFFICULTY_CHOICES = (
-        (0, 'Unknown'),
-        (1, 'Beginner'),
-        (2, 'Intermediate'),
-        (3, 'Advanced'),
-        (4, 'Insane'),
-    )
+class Difficulty(Enum):
+    BEGINNER = 'Beginner'
+    INTERMEDIATE = 'Intermediate'
+    ADVANCED = 'Advanced'
+    PROFESSIONAL = 'Professional'
 
+
+class Piece(models.Model):
     id = models.IntegerField('Catalog ID Number', primary_key=True)
     location = models.ForeignKey('Location', models.PROTECT)
     title = models.CharField('Title', max_length=256)
@@ -50,9 +49,10 @@ class Piece(models.Model):
                                   choices=[(s.name, s.value)
                                            for s in Score],
                                   blank=True, null=True)
-    difficulty = models.SmallIntegerField('Difficulty Level',
-                                          choices=DIFFICULTY_CHOICES,
-                                          blank=True, null=True)
+    difficulty = models.CharField('Difficulty Level', max_length=12,
+                                  choices=[(s.name, s.value)
+                                           for s in Difficulty],
+                                  blank=True, null=True)
     comment = models.TextField('Comment', max_length=1024, blank=True)
 
     def __str__(self):
