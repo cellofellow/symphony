@@ -1,3 +1,5 @@
+from enum import Enum
+
 from django.db import models
 from django.urls import reverse
 
@@ -15,6 +17,13 @@ class Artist(models.Model):
     class Meta:
         ordering = ('surname', 'given_names')
         unique_together = ('surname', 'given_names')
+
+
+class Score(Enum):
+    NO_SCORE = 'No Score'
+    CONDENSED = 'Condensed'
+    PIANO = 'Piano'
+    FULL = 'Full'
 
 
 class Piece(models.Model):
@@ -37,8 +46,10 @@ class Piece(models.Model):
     arranger_artists = models.ManyToManyField('Artist',
                                               related_name='pieces_arranged',
                                               blank=True)
-    score = models.ForeignKey('ScoreType', models.SET_NULL,
-                              blank=True, null=True)
+    score_type = models.CharField('Score Type', max_length=12,
+                                  choices=[(s.name, s.value)
+                                           for s in Score],
+                                  blank=True, null=True)
     difficulty = models.SmallIntegerField('Difficulty Level',
                                           choices=DIFFICULTY_CHOICES,
                                           blank=True, null=True)
@@ -67,14 +78,6 @@ class Piece(models.Model):
             WHERE piece_search.body MATCH %s
             """,
             [term])
-
-
-class ScoreType(models.Model):
-    name = models.CharField('Short Name', max_length=16)
-    description = models.CharField('Description', max_length=140)
-
-    def __str__(self):
-        return "%s" % self.name
 
 
 class Location(models.Model):
