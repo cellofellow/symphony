@@ -1,3 +1,5 @@
+* DONE Fix admin requiring arranger
+  CLOSED: [2018-03-23 Fri 16:11]
 * DONE Make front page a search page.
   CLOSED: [2017-05-31 Wed 13:26]
   :LOGBOOK:
