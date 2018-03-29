@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ahne2lsfy9us714nw&50_wroorfn)p2-^12nwzk*3ah@4i!7ae'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'ahne2lsfy9us714nw&50_wroorfn)p2-^12nwzk*3ah@4i!7ae')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG', '').upper() != 'FALSE'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["library.nuys.xyz"]
 
 
 # Application definition
@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'symphony.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.getenv('DJANGO_DB_PATH', os.path.join(BASE_DIR, 'db.sqlite3')),
     }
 }
 
@@ -120,3 +120,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+if not DEBUG:
+    STATIC_ROOT = os.getenv('DJANGO_STATIC_ROOT')
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 60*60*24*30
