@@ -25,7 +25,10 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'ahne2lsfy9us714nw&50_wroorfn)p2-^12
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG', '').upper() != 'FALSE'
 
-ALLOWED_HOSTS = ["library.nuys.xyz"]
+if not DEBUG:
+    ALLOWED_HOSTS = ["library.nuys.xyz"]
+else:
+    ALLOWED_HOSTS = []
 
 
 # Application definition
