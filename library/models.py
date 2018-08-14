@@ -14,6 +14,10 @@ class Artist(models.Model):
     def get_absolute_url(self):
         return reverse('library.views.composer_list', args=[str(self.id)])
 
+    @property
+    def name(self) -> str:
+        return f'{self.surname}, {self.given_names}'
+
     class Meta:
         ordering = ('surname', 'given_names')
         unique_together = ('surname', 'given_names')
@@ -63,6 +67,13 @@ class Piece(models.Model):
 
     def get_edit_url(self):
         return reverse('admin:library_piece_change', args=[self.id])
+
+    @property
+    def byline(self) -> str:
+        composer = self.composer_artists.first()
+        arranger = self.arranger_artists.first()
+        arranger = f' arr. {arranger.surname}' if arranger else ''
+        return f'{composer.surname}{arranger}'
 
     class Meta:
         ordering = ['title']
@@ -121,7 +132,7 @@ class Performance(models.Model):
         return '{}: {}'.format(self.date, self.place)
 
     def get_absolute_url(self):
-        return reverse('performance_detail', kwargs={'object_id': self.id})
+        return f'{reverse("performance_list")}#{self.id}'
 
     def get_edit_url(self):
         return reverse('admin', args=['library/performance/%d/' % self.id])

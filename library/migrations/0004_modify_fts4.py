@@ -244,7 +244,7 @@ FORWARDS = [
     """,
 ]
 
-from ._0002_fts4 import FORWARDS as PREVIOUS_FORWARDS
+from .._0002_sql import FORWARDS as PREVIOUS_FORWARDS
 REVERSE = [
     """DROP TRIGGER library_piece_arranger_artists_search_delete""",
     """DROP TRIGGER library_piece_arranger_artists_search_update""",

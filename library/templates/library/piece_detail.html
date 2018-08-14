@@ -59,6 +59,17 @@
                     </div>
                 </div>
                 {% endif %}
+                {% if piece.performance_set.exists %}
+                <div class="tile" >
+                    <div class="tile-content" >
+                        <h4 class="tile-title" >Performances</h4>
+                        <ul>
+                            {% for performance in piece.performance_set.all %}
+                            <li><a href="{{ performance.get_absolute_url }}">{{ performance.date | date:"M n, Y" }}</a></li>
+                            {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
                 {% if piece.comment %}
                 <div class="tile" >
                     <div class="tile-content">

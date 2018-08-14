@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Performances – Music Catalog</title>
+        {% include 'library/_css.html' %}
+        <style>
+         article:target {
+             background-color: lightyellow;
+         }
+        </style>
+    </head>
+    <body>
+        <div class="container" >
+            <div class="columns">
+                <div class="column col-12" >
+                    <h1><a href="/">Music Catalog</a></h1>
+                    <h2>Performance History</h2>
+                </div>
+                {% for performance in performances %}
+                <article class="column col-6" id="{{performance.id}}">
+                    <h3><em>{{ performance.date | date:"M n, Y" }}</em> {{ performance.place }}</h3>
+                    <h4>Orchestras</h4>
+                    <ul>
+                        {% for orchestra in performance.orchestra.all %}
+                        <li>{{ orchestra.name }}</li>
+                        {% endfor %}
+                    </ul>
+                    <h4>Pieces</h4>
+                    <ul>
+                        {% for piece in performance.piece.all %}
+                        <li><a href="{{ piece.get_absolute_url }}"><i>{{ piece.title }}</i> by {{ piece.byline }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </article>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>

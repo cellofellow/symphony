@@ -6,9 +6,12 @@
 <body>
     <div class="container" >
         <div class="columns">
-            <div class="column col-12" >
+            <div class="column col-6" >
                 <h1>Music Catalog</h1>
             </div>
+            <nav class="colum col-6">
+                <a href="{% url 'performance_list' %}" >Performances</a>
+            </nav>
             <div class="column col-12">
                 <form action="." method="GET" class="form-horizontal">
                     <div class="form-group">

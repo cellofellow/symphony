@@ -6,3 +6,19 @@
   CLOCK: [2017-05-30 Tue 18:26]--[2017-05-30 Tue 19:25] =>  0:59
   CLOCK: [2017-05-30 Tue 17:56]--[2017-05-30 Tue 18:21] =>  0:25
   :END:
+
+* From "Stuff" email
+** DONE List and Detail views for Performances
+   CLOSED: [2018-08-14 Tue 15:36]
+   :LOGBOOK:
+   CLOCK: [2018-08-14 Tue 14:24]--[2018-08-14 Tue 14:49] =>  0:25
+   CLOCK: [2018-08-14 Tue 13:44]--[2018-08-14 Tue 14:09] =>  0:25
+   CLOCK: [2018-08-14 Tue 13:13]--[2018-08-14 Tue 13:38] =>  0:25
+   :END:
+** TODO Detail view of Composer to list pieces of that composer (Artist)
+** DONE Piece page list performances
+   CLOSED: [2018-08-14 Tue 15:36]
+** TODO Sort pieces in Admin
+** Date widget of Add Performance needs reviewing
+** Make ~<select multiple>~ boxes re-sizable. Can that be done?
+** Exceptions when removing arrangers.

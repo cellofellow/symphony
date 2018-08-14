@@ -1,6 +1,6 @@
 from django.views.generic import ListView, DetailView, TemplateView
 
-from .models import Piece, Location
+from .models import Piece, Location, Performance
 
 
 class SearchView(TemplateView):
@@ -22,3 +22,10 @@ class PieceDetail(DetailView):
 
 class LocationView(DetailView):
     queryset = Location.objects.all()
+
+
+class PerformanceList(ListView):
+    queryset = (Performance.objects
+                .prefetch_related('orchestra', 'piece')
+                .order_by('-date'))
+    context_object_name = 'performances'

@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.db import migrations
 
-from ._0002_fts4 import FORWARDS
+from .._0002_sql import FORWARDS
 
 REVERSE = [
     """DROP TRIGGER library_piece_arranger_search_delete""",
