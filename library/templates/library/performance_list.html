@@ -18,7 +18,7 @@
                 </div>
                 {% for performance in performances %}
                 <article class="column col-6" id="{{performance.id}}">
-                    <h3><em>{{ performance.date | date:"M n, Y" }}</em> {{ performance.place }}</h3>
+                    <h3><em>{{ performance.date | date:"M j, Y" }}</em> {{ performance.place }}</h3>
                     <h4>Orchestras</h4>
                     <ul>
                         {% for orchestra in performance.orchestra.all %}
