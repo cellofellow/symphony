@@ -11,6 +11,6 @@ letsencrypt () {
 }
 
 letsencrypt
-letsencrypt 30d &
+letsencrypt 1d &
 ./manage.py migrate --no-input
 exec uwsgi --ini uwsgi.ini
