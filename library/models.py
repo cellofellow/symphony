@@ -12,7 +12,10 @@ class Artist(models.Model):
         return '{self.surname}, {self.given_names}'.format(self=self)
 
     def get_absolute_url(self):
-        return reverse('library.views.composer_list', args=[str(self.id)])
+        return reverse('artist_detail', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('admin:library_artist_change', args=[self.id])
 
     @property
     def name(self) -> str:

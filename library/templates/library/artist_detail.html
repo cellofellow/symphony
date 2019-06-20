@@ -1,0 +1,69 @@
+<html>
+<head>
+    <title>{{ artist.name }} - Music Catalog</title>
+    {% include 'library/_css.html' %}
+</head>
+<body>
+    {% load static %}
+    <div class="container" >
+        <div class="columns">
+            <div class="column col-12">
+                <h1>Music Catalog</h1>
+            </div>
+            <div class="column col-12" >
+                <header>
+                    <h2>{{ artist.name }}</h2>
+                </header>
+                {% if artist.pieces_composed.exists %}
+                <section>
+                    <h3>Pieces Composed</h3>
+                    <table class="table table-striped table-hover">
+                        <thead><th>ID Number</th><th>Title</th><th>Arrangers</th><th>Location</th></thead>
+                        <tbody>
+                        {% for piece in artist.pieces_composed.all %}
+                            <tr>
+                                <td>{{ piece.id }}</td>
+                                <td><a href="{{ piece.get_absolute_url }}">{{ piece.title }}{% if piece.subtitle %} <small>{{ piece.subtitle }}</small>{% endif %}</a></td>
+                                <td><ul>
+                                    {% for arranger in piece.arranger_artists.all %}
+                                    <li style="display:block;">
+                                        <a href="{{ arranger.get_absolute_url }}">{{ arranger }}</a>
+                                    </li>
+                                    {% endfor %}
+                                </ul></td>
+                                <td><a href="{{ piece.location.get_absolute_url }}">{{ piece.location }}</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+                {% endif %}
+                {% if artist.pieces_arranged.exists %}
+                <section>
+                    <h3>Pieces Arranged</h3>
+                    <table class="table table-striped table-hover">
+                        <thead><th>ID Number</th><th>Title</th><th>Composers</th><th>Location</th></thead>
+                        <tbody>
+                            {% for piece in artist.pieces_arranged.all %}
+                            <tr>
+                                <td>{{ piece.id }}</td>
+                                <td><a href="{{ piece.get_absolute_url }}">{{ piece.title }}{% if piece.subtitle %} <small>{{ piece.subtitle }}</small>{% endif %}</a></td>
+                                <td><ul>
+                                    {% for composer in piece.composer_artists.all %}
+                                    <li style="display:block;">
+                                        <a href="{{ composer.get_absolute_url }}">{{ composer }}</a>
+                                    </li>
+                                    {% endfor %}
+                                </ul></td>
+                                <td><a href="{{ piece.location.get_absolute_url }}">{{ piece.location }}</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

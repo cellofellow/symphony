@@ -10,11 +10,11 @@
             <div class="column col-12">
                 <h1>Music Catalog</h1>
             </div>
-            <div class="column col-3" >
+            <div class="column col-12" >
                 <header>
                     <h2>{{ piece.title }}</h2>
                     {% if piece.subtitle %}<h3>{{ piece.subtitle }}</h3>{% endif %}
-                    <p>{{ piece.location }}</p>
+                    <p><a href="{{ piece.location.get_absolute_url }}">{{ piece.location }}</a></p>
                 </header>
                 {% if piece.difficulty %}
                 <p><strong>Difficulty:</strong> {{ piece.difficulty }}</p>
@@ -27,15 +27,11 @@
                     </div>
                     <div class="tile-content">
                         <div class="tile-title">Composers</div>
-                        {% ifequal piece.composer_artists.count 1 %}
-                        {{ piece.composer_artists.first }}
-                        {% else %}
                         <ul>
                             {% for composer in piece.composer_artists.all %}
-                            <li>{{ composer }}</li>
+                            <li><a href="{{ composer.get_absolute_url }}">{{ composer }}</a></li>
                             {% endfor %}
                         </ul>
-                        {% endifequal %}
                     </div>
                 </div>
                 {% if piece.arranger_artists.exists %}
@@ -47,15 +43,11 @@
                     </div>
                     <div class="tile-content">
                         <div class="tile-title">Arrangers</div>
-                        {% ifequal piece.arranger_artists.count 1 %}
-                        {{ piece.arranger_artists.first }}
-                        {% else %}
                         <ul>
                             {% for arranger in piece.arranger_artists.all %}
-                            <li>{{ arranger }}</li>
+                            <li><a href="{{ arranger.get_absolute_url }}">{{ arranger }}</a></li>
                             {% endfor %}
                         </ul>
-                        {% endifequal %}
                     </div>
                 </div>
                 {% endif %}

@@ -15,7 +15,8 @@
    CLOCK: [2018-08-14 Tue 13:44]--[2018-08-14 Tue 14:09] =>  0:25
    CLOCK: [2018-08-14 Tue 13:13]--[2018-08-14 Tue 13:38] =>  0:25
    :END:
-** TODO Detail view of Composer to list pieces of that composer (Artist)
+** DONE Detail view of Composer to list pieces of that composer (Artist)
+   CLOSED: [2019-06-19 Wed 23:30]
 ** DONE Piece page list performances
    CLOSED: [2018-08-14 Tue 15:36]
 ** TODO Sort pieces in Admin

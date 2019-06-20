@@ -35,8 +35,20 @@
                         <tr>
                             <td>{{ piece.id }}</td>
                             <td><a href="{{ piece.get_absolute_url }}">{{ piece.title }}{% if piece.subtitle %} <small>{{ piece.subtitle }}</small>{% endif %}</a></td>
-                            <td><ul>{% for composer in piece.composer_artists.all %}<li style="display:block;">{{ composer }}</li>{% endfor %}</ul></td>
-                            <td><ul>{% for arranger in piece.arranger_artists.all %}<li style="display:block;">{{ arranger }}</li>{% endfor %}</ul></td>
+                            <td><ul>
+                                {% for composer in piece.composer_artists.all %}
+                                <li style="display:block;">
+                                    <a href="{{ composer.get_absolute_url }}">{{ composer }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul></td>
+                            <td><ul>
+                                {% for arranger in piece.arranger_artists.all %}
+                                <li style="display:block;">
+                                    <a href="{{ arranger.get_absolute_url }}">{{ arranger }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul></td>
                             <td><a href="{{ piece.location.get_absolute_url }}">{{ piece.location }}</a></td>
                         </tr>
                         {% endfor %}
